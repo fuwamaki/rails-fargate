@@ -8,9 +8,9 @@ default: &default
 development:
   <<: *default
   database: rails_fargate_development
-  username: root
-  password: Makitest1
-  host: db # ここlocalhostにしてはダメ
+  username: root # 必ずrootを指定すること
+  password: Makitest1 # 任意のパスワード(MYSQL_ROOT_PASSWORDと同じにすること)
+  host: db # 注意: ここlocalhostにしてはダメ
 
 test:
   <<: *default

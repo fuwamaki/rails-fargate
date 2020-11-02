@@ -10,7 +10,7 @@ development:
   database: rails_fargate_development
   username: root
   password: Makitest1
-  host: db
+  host: db # ここlocalhostにしてはダメ
 
 test:
   <<: *default

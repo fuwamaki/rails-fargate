@@ -17,7 +17,6 @@ test:
   username: root
   password: Makitest1
   database: rails_fargate_test
-  host: <%= ENV['DB_HOST'] || 'db' %>
 
 production:
   <<: *default

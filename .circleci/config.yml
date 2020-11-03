@@ -36,7 +36,7 @@ jobs:
       - image: circleci/ruby:2.7.1-node-browsers-legacy
         environment:
           RAILS_ENV: test
-          DB_HOST: 127.0.0.1
+          DB_ROOT_PASSWORD: Makitest1
       - image: circleci/mysql:5.6
     working_directory: ~/repo
     steps:

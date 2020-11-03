@@ -39,8 +39,9 @@ jobs:
           DB_HOST: 127.0.0.1
       - image: circleci/mysql:5.6
         environment:
-          MYSQL_USER: root
-          MYSQL_ROOT_PASSWORD: Makitest1
+          DB_USER: root
+          DB_DB: rails_fargate_test
+          DB_ROOT_PASSWORD: Makitest1
     working_directory: ~/repo
     steps:
       - checkout

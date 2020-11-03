@@ -24,3 +24,12 @@ Layout/LineLength:
 
 Style/AsciiComments:
   Enabled: false
+
+Style/GlobalStdStream:
+  Enabled: false
+
+Style/RedundantFetchBlock:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false

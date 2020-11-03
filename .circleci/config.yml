@@ -37,7 +37,7 @@ jobs:
         environment:
           RAILS_ENV: test
       - image: circleci/mysql:5.6
-      environment:
+        environment:
           MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: Makitest1
     working_directory: ~/repo

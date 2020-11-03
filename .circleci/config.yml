@@ -8,11 +8,11 @@ jobs:
       - image: circleci/ruby:2.7.1-node-browsers-legacy
         environment:
           RAILS_ENV: test
-          POSTGRES_HOST: 127.0.0.1
-      - image: circleci/postgres:9.4
+          DB_HOST: 127.0.0.1
+      - image: circleci/mysql:5.6
         environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: app_test
+          DB_USER: root
+          DB_DB: rails_fargate_test
     working_directory: ~/repo
     steps:
       - checkout
@@ -37,7 +37,7 @@ jobs:
       - image: circleci/ruby:2.7.1-node-browsers-legacy
         environment:
           RAILS_ENV: test
-          POSTGRES_HOST: 127.0.0.1
+          DB_HOST: 127.0.0.1
       - image: circleci/mysql:5.6
     working_directory: ~/repo
     steps:

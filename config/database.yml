@@ -14,10 +14,9 @@ development:
 
 test:
   <<: *default
-  username: root
-  password: Makitest1
   database: rails_fargate_test
-  host: db
+  username: root
+  host: <%= ENV['DB_HOST'] || '127.0.0.1' %>
 
 production:
   <<: *default

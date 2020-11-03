@@ -55,9 +55,9 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       - run:
-          command: bundle exec rails db:create
+          command: bundle exec rake db:create
       - run:
-          command: bundle exec rails db:migrate
+          command: bundle exec rake db:migrate
       - run:
           name: create directory to store test results
           command: mkdir /tmp/test-results

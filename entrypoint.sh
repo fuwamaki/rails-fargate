@@ -1,4 +1,9 @@
 #!/bin/bash
+sudo service nginx start
+cd /app
+bin/setup
+bundle exec pumactl start
+
 set -e
 
 # Remove a potentially pre-existing server.pid for Rails.

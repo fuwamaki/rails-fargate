@@ -22,6 +22,13 @@ RUN bundle install
 
 COPY . /rails-fargate
 
+# nginx
+RUN groupadd nginx
+
+RUN useradd -g nginx nginx
+
+ADD nginx/nginx.conf /etc/nginx/nginx.conf
+
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
 

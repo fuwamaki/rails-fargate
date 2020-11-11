@@ -19,7 +19,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
       - run: yarn install
@@ -39,26 +38,43 @@ jobs:
           RAILS_ENV: test
           DB_HOST: 127.0.0.1
       - image: circleci/mysql:5.6
+        environment:
+          DB_USER: root
+          DB_DB: rails_fargate_test
+          DB_ROOT_PASSWORD: Makitest1
     working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - run: yarn install
+      - run:
+          command: |
+            gem install bundler
+            bundle config set path 'vendor/bundle'
+            bundle install --jobs=4 --retry=3
       - save_cache:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
-      # Rspec
       - run:
-          name: Rspec
-          command: bundle exec rspec
+          command: bundle exec rake db:create
+      - run:
+          command: bundle exec rake db:migrate
+      - run:
+          name: create directory to store test results
+          command: mkdir /tmp/test-results
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings) \
+              || (printf "====== RETRYING...\n\n\n"; bundle exec rspec --only-failures)
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
 
 workflows:
   version: 2
